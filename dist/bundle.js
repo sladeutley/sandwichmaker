@@ -7,11 +7,12 @@ let bread = document.getElementById("bread");
 let meat = document.getElementById("cheese");
 let condiments = document.getElementById("condiments");
 let veggies = document.getElementById("veggies");
+let output = document.getElementById("output");
 // required the SandwichMaker js page
 let sandwichMaker = require("./SandwichMaker");
 
 submit.addEventListener("click", function(){
-    console.log("button clicked");
+    output.innerHTML = `Your ${sandwichOutput(sandwichMaker.getSandwich())} sandwich costs $${sandwichMaker.getTotal()}`;
 });
 
 // bread.addEventListener("checked",function(){
@@ -23,17 +24,44 @@ menu.addEventListener("change", function(){
     console.log(event.target.closest("div").id);
     sandwichMaker.addIngredient(event.target.closest("div").id, event.target.value);
 });
+
+function sandwichOutput (sandwichObject) {
+    let sandwichString = "";
+    for(let ingredient in sandwichObject){ //A 'FOR EACH' FOR AN OBJECT. INGREDIENT IS JUST RANDOM DEFINED 
+        console.log("ingredient",sandwichObject[ingredient]);
+        for (let i=0; i<sandwichObject[ingredient].length; i++){
+            sandwichString += `${sandwichObject[ingredient][i]} `;
+        }
+
+    }
+    return sandwichString;
+}
 },{"./SandwichMaker":2}],2:[function(require,module,exports){
 'use strict';
 
 require("./DOMInteraction"); //DON'T UNDERSTAND WHY THIS REQUIRES DOMINTERACTION.JS
 let bread = require("./bread");
 let total = 0;
+let sandwich = {
+    "bread": [],
+    "meat": [],
+    "cheese": [],
+    "condiments": [],
+    "veggies": []
+};
 
 module.exports.addIngredient = (id, value) => {
+    sandwich[id].push(value);
+    console.log(sandwich);
     total += bread.addBread(value);
     console.log(total);
 };
+
+module.exports.getTotal = () =>  //THIS IS CALLED A 'GETTER'
+     total;
+
+module.exports.getSandwich = () => sandwich;
+
 },{"./DOMInteraction":1,"./bread":3}],3:[function(require,module,exports){
 'use strict';
 
