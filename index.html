@@ -5,10 +5,54 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="stylesheets/main.css">
-    <title>Document</title>
+    <title>Sandwiches</title>
 </head>
 <body>
-    Hello
+    
+    <h1>Sandwich Maker</h1>
+    <div id="menu">
+        <div id="bread">
+            <input type="checkbox" value="white"> White
+            <input type="checkbox" value="wheat"> Wheat
+            <input type="checkbox" value="rye"> Rye
+            <input type="checkbox" value="none"> None
+        </div>
+
+        <div id="meat">
+            <input type="checkbox" value="turkey"> Turkey
+            <input type="checkbox" value="ham"> Ham
+            <input type="checkbox" value="bacon"> Bacon
+            <input type="checkbox" value="none"> None
+        </div>
+
+        <div id="cheese">
+            <input type="checkbox" value="american"> American
+            <input type="checkbox" value="pepper-jack"> Pepper-Jack
+            <input type="checkbox" value="munster">Münster
+            <input type="checkbox" value="none">None
+        </div>
+
+        <div id="condiments">
+            <input type="checkbox" value="ketchup">Ketchup
+            <input type="checkbox" value="mustard">Mustard
+            <input type="checkbox" value="mayo">Mayo
+            <input type="checkbox" value="none">None
+        </div>
+
+        <div id="veggies">
+            <input type="checkbox" value="peppers">Peppers
+            <input type="checkbox" value="onions">Onions
+            <input type="checkbox" value="lettuce">Lettuce
+            <input type="checkbox" value="none">None
+        </div>
+    </div>
+
+    <input type="button" id="submit" value="Submit">
+
+    <div id="output">
+
+    </div>
+
     <script src="dist/bundle.js"></script>
 </body>
 </html>
