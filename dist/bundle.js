@@ -15,9 +15,10 @@ submit.addEventListener("click", function(){
     output.innerHTML = `Your ${sandwichOutput(sandwichMaker.getSandwich())} sandwich costs $${sandwichMaker.getTotal()}`;
 });
 
-// bread.addEventListener("checked",function(){
-//     console.log('boxchecked');
-// });
+//when 'none' is selected, the checkboxes need to clear
+//if none is selected, you need to be able to select other checkboxes and none disappears
+//if none is selected, you need to clear that categories total out
+//only if item is checked, does it add to the total
 
 menu.addEventListener("change", function(){
     console.log(event.target.value);
@@ -41,6 +42,10 @@ function sandwichOutput (sandwichObject) {
 
 require("./DOMInteraction"); //DON'T UNDERSTAND WHY THIS REQUIRES DOMINTERACTION.JS
 let bread = require("./bread");
+let meat = require("./meat");
+let cheese = require("./cheese");
+let condiment = require("./condiments");
+let veggies = require("./veggies");
 let total = 0;
 let sandwich = {
     "bread": [],
@@ -51,10 +56,24 @@ let sandwich = {
 };
 
 module.exports.addIngredient = (id, value) => {
-    sandwich[id].push(value);
-    console.log(sandwich);
-    total += bread.addBread(value);
-    console.log(total);
+    if (id === "bread") {
+        sandwich[id].push(value);
+        total += bread.addBread(value);
+    } if (id === "meat") {
+        sandwich[id].push(value);
+        total += meat.addMeat(value);
+    } if (id === "cheese") {
+        sandwich[id].push(value);
+        total += cheese.addCheese(value);
+    } if (id === "condiments") {
+        sandwich[id].push(value);
+        total += condiment.addCondiments(value);
+    } if (id === "veggies") {
+        sandwich[id].push(value);
+        total += veggies.addVegies(value);
+    }
+    console.log("Your total cost", total);
+    return total;
 };
 
 module.exports.getTotal = () =>  //THIS IS CALLED A 'GETTER'
@@ -62,7 +81,7 @@ module.exports.getTotal = () =>  //THIS IS CALLED A 'GETTER'
 
 module.exports.getSandwich = () => sandwich;
 
-},{"./DOMInteraction":1,"./bread":3}],3:[function(require,module,exports){
+},{"./DOMInteraction":1,"./bread":3,"./cheese":4,"./condiments":5,"./meat":6,"./veggies":7}],3:[function(require,module,exports){
 'use strict';
 
 let breadPrices = {
@@ -74,5 +93,57 @@ let breadPrices = {
 
 module.exports.addBread = (breadType) => {
     return breadPrices[breadType]; //BC THE VALUE DECLARED IN INDEX (E.G "WHEAT"), IS SAME AS 'WHEAT' HERE, WE GET PRICE!
+};
+},{}],4:[function(require,module,exports){
+'use strict';
+
+let cheesePrices = {
+    "american" : 0.19,
+    "pepper-jack" : 0.25,
+    "munster" : 0.30,
+    "none" : 0 
+};
+
+module.exports.addCheese = (cheeseType) => {
+    return cheesePrices[cheeseType];
+};
+},{}],5:[function(require,module,exports){
+'use strict';
+
+let condimentPrices = {
+    "ketchup" : 0.19,
+    "mustard" : 0.25,
+    "mayo" : 0.30,
+    "none" : 0 
+};
+
+module.exports.addCondiments = (condimentType) => {
+    return condimentPrices[condimentType];
+};
+},{}],6:[function(require,module,exports){
+'use strict';
+
+let meatPrices = {
+    "turkey" : 0.19,
+    "ham" : 0.25,
+    "bacon" : 0.30,
+    "none" : 0 
+};
+
+module.exports.addMeat = (meatType) => {
+    return meatPrices[meatType];
+};
+},{}],7:[function(require,module,exports){
+'use strict';
+
+let veggiePrices = {
+    "peppers" : 0.19,
+    "onions" : 0.25,
+    "lettuce" : 0.30,
+    "none" : 0 
+};
+
+module.exports.addVegies = (veggieType) => {
+    return veggiePrices[veggieType];
 };
 },{}]},{},[2]);

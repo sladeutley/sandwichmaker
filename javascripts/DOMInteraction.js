@@ -14,9 +14,10 @@ submit.addEventListener("click", function(){
     output.innerHTML = `Your ${sandwichOutput(sandwichMaker.getSandwich())} sandwich costs $${sandwichMaker.getTotal()}`;
 });
 
-// bread.addEventListener("checked",function(){
-//     console.log('boxchecked');
-// });
+//when 'none' is selected, the checkboxes need to clear
+//if none is selected, you need to be able to select other checkboxes and none disappears
+//if none is selected, you need to clear that categories total out
+//only if item is checked, does it add to the total
 
 menu.addEventListener("change", function(){
     console.log(event.target.value);
