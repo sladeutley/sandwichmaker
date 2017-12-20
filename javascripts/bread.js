@@ -1,5 +1,6 @@
 'use strict';
 
+let breadCost = 0;
 let breadPrices = {
     "white" : 0.19,
     "wheat" : 0.25,
@@ -8,5 +9,7 @@ let breadPrices = {
 };
 
 module.exports.addBread = (breadType) => {
-    return breadPrices[breadType]; //BC THE VALUE DECLARED IN INDEX (E.G "WHEAT"), IS SAME AS 'WHEAT' HERE, WE GET PRICE!
+    breadCost += breadPrices[breadType]; //BC THE VALUE DECLARED IN INDEX (E.G "WHEAT"), IS SAME AS 'WHEAT' HERE, WE GET PRICE!
 };
+
+module.exports.breadTotal = () => breadCost;

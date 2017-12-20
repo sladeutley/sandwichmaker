@@ -19,7 +19,6 @@ submit.addEventListener("click", function(){
 //if none is selected, you need to clear that categories total out
 //only if item is checked, does it add to the total
 function clearCheckboxes (div) {
-    console.log("clearCheckboxes function is working", div);
     let checkCheckboxes = div.getElementsByClassName(div.id);
     for (let i=0; i<checkCheckboxes.length; i++) {
         checkCheckboxes[i].checked = false;
@@ -28,23 +27,25 @@ function clearCheckboxes (div) {
 
 menu.addEventListener("change", function(){
     let category = event.target.closest("div");
-    console.log(event.target.value);
-    console.log(event.target.closest("div").id);
-    sandwichMaker.addIngredient(category.id, event.target.value);
     if (event.target.value === "none") {
         console.log("you pressed none");
         clearCheckboxes(category);
+        sandwichMaker.clearCategoryTotal(category);
+    }
+    if (!event.target.checked) {
+        sandwichMaker.removeIngredient(category.id, event.target.value);
+    }
+    else if (event.target.checked) {
+        sandwichMaker.addIngredient(category.id, event.target.value);
     }
 });
 
 function sandwichOutput (sandwichObject) {
     let sandwichString = "";
     for(let ingredient in sandwichObject){ //A 'FOR EACH' FOR AN OBJECT. INGREDIENT IS JUST RANDOM DEFINED 
-        console.log("ingredient",sandwichObject[ingredient]);
         for (let i=0; i<sandwichObject[ingredient].length; i++){
             sandwichString += `${sandwichObject[ingredient][i]} `;
         }
-
     }
     return sandwichString;
 }
