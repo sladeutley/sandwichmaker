@@ -24,6 +24,10 @@ menu.addEventListener("change", function(){
     console.log(event.target.value);
     console.log(event.target.closest("div").id);
     sandwichMaker.addIngredient(event.target.closest("div").id, event.target.value);
+    if (event.target.value === "none") {
+        console.log("you pressed none");
+        event.target.typed.checked = false;
+    }
 });
 
 function sandwichOutput (sandwichObject) {
@@ -37,6 +41,9 @@ function sandwichOutput (sandwichObject) {
     }
     return sandwichString;
 }
+
+
+
 },{"./SandwichMaker":2}],2:[function(require,module,exports){
 'use strict';
 
@@ -55,24 +62,47 @@ let sandwich = {
     "veggies": []
 };
 
+// module.exports.addIngredient = (id, value) => {
+//     if (id === "bread") {
+//         sandwich[id].push(value);
+//         total += bread.addBread(value);
+//     } if (id === "meat") {
+//         sandwich[id].push(value);
+//         total += meat.addMeat(value);
+//     } if (id === "cheese") {
+//         sandwich[id].push(value);
+//         total += cheese.addCheese(value);
+//     } if (id === "condiments") {
+//         sandwich[id].push(value);
+//         total += condiment.addCondiments(value);
+//     } if (id === "veggies") {
+//         sandwich[id].push(value);
+//         total += veggies.addVegies(value);
+//     }
+//     console.log("Your total cost", total);
+//     return total;
+// };
+
+//SWITCH STATEMENT - ANOTHER WAY TO DO WHAT YOU DID UP ABOVE
 module.exports.addIngredient = (id, value) => {
-    if (id === "bread") {
-        sandwich[id].push(value);
+    sandwich[id].push(value);
+    switch (id) {
+        case "bread":
         total += bread.addBread(value);
-    } if (id === "meat") {
-        sandwich[id].push(value);
+        break;
+        case "meat":
         total += meat.addMeat(value);
-    } if (id === "cheese") {
-        sandwich[id].push(value);
+        break;
+        case "cheese":
         total += cheese.addCheese(value);
-    } if (id === "condiments") {
-        sandwich[id].push(value);
+        break;
+        case "condiments":
         total += condiment.addCondiments(value);
-    } if (id === "veggies") {
-        sandwich[id].push(value);
+        break;
+        case "veggies":
         total += veggies.addVegies(value);
     }
-    console.log("Your total cost", total);
+    console.log("total cost", total);
     return total;
 };
 
