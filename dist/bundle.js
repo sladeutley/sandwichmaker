@@ -19,14 +19,22 @@ submit.addEventListener("click", function(){
 //if none is selected, you need to be able to select other checkboxes and none disappears
 //if none is selected, you need to clear that categories total out
 //only if item is checked, does it add to the total
+function clearCheckboxes (div) {
+    console.log("clearCheckboxes function is working", div);
+    let checkCheckboxes = div.getElementsByClassName(div.id);
+    for (let i=0; i<checkCheckboxes.length; i++) {
+        checkCheckboxes[i].checked = false;
+    }
+}
 
 menu.addEventListener("change", function(){
+    let category = event.target.closest("div");
     console.log(event.target.value);
     console.log(event.target.closest("div").id);
-    sandwichMaker.addIngredient(event.target.closest("div").id, event.target.value);
+    sandwichMaker.addIngredient(category.id, event.target.value);
     if (event.target.value === "none") {
         console.log("you pressed none");
-        event.target.typed.checked = false;
+        clearCheckboxes(category);
     }
 });
 
