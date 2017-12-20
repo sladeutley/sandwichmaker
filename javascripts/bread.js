@@ -8,8 +8,20 @@ let breadPrices = {
     "none" : 0 
 };
 
-module.exports.addBread = (breadType) => {
-    breadCost += breadPrices[breadType]; //BC THE VALUE DECLARED IN INDEX (E.G "WHEAT"), IS SAME AS 'WHEAT' HERE, WE GET PRICE!
+module.exports.getBreadPrice = (breadType) => {
+    return breadPrices[breadType];
 };
 
-module.exports.breadTotal = () => breadCost;
+// module.exports.addBread = (breadType) => {
+//     breadCost += breadPrices[breadType]; //BC THE VALUE DECLARED IN INDEX (E.G "WHEAT"), IS SAME AS 'WHEAT' HERE, WE GET PRICE!
+//     console.log("bread cost", breadCost);
+//     return breadCost;
+// };
+
+// module.exports.removeBread = (breadType) => {
+//     breadCost -= breadPrices[breadType];
+//     console.log("deducted bread cost", breadCost);
+//     return ;
+// };
+
+// module.exports.breadTotal = () => breadCost;

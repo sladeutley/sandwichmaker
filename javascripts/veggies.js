@@ -7,6 +7,6 @@ let veggiePrices = {
     "none" : 0 
 };
 
-module.exports.addVegies = (veggieType) => {
+module.exports.getVeggiesPrice = (veggieType) => {
     return veggiePrices[veggieType];
 };

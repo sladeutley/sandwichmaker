@@ -22,22 +22,27 @@ submit.addEventListener("click", function(){
 function clearCheckboxes (div) {
     let checkCheckboxes = div.getElementsByClassName(div.id);
     for (let i=0; i<checkCheckboxes.length; i++) {
+        sandwichMaker.clearCategoryTotal(div.id, checkCheckboxes[i]);
         checkCheckboxes[i].checked = false;
     }
 }
 
 menu.addEventListener("change", function(){
     let category = event.target.closest("div");
+    let none = category.getElementsByClassName("none");
     if (event.target.value === "none") {
         console.log("you pressed none");
         clearCheckboxes(category);
-        sandwichMaker.clearCategoryTotal(category);
     }
     if (!event.target.checked) {
         sandwichMaker.removeIngredient(category.id, event.target.value);
     }
     else if (event.target.checked) {
         sandwichMaker.addIngredient(category.id, event.target.value);
+        if (none[0].checked) {
+            none[0].checked = false;
+            console.log(none);
+        }
     }
 });
 
@@ -97,54 +102,73 @@ module.exports.addIngredient = (id, value) => {
     sandwich[id].push(value);
     switch (id) {
         case "bread":
-        bread.addBread(value);
-        total += bread.breadTotal();
+        total += bread.getBreadPrice(value);
+        // total += bread.breadTotal();
         break;
         case "meat":
-        total += meat.addMeat(value);
+        total += meat.getMeatPrice(value);
         break;
         case "cheese":
-        total += cheese.addCheese(value);
+        total += cheese.getCheesePrice(value);
         break;
         case "condiments":
-        total += condiment.addCondiments(value);
+        total += condiment.getCondimentPrice(value);
         break;
         case "veggies":
-        total += veggies.addVegies(value);
+        total += veggies.getVeggiesPrice(value);
     }
-    console.log("total cost", total);
-    return total;
+    console.log("add", total.toFixed(2));
+    return total.toFixed(2);
 };
 
 module.exports.removeIngredient = (id, value) => {
     sandwich[id].splice(sandwich[id].indexOf(value), 1);
     switch (id) {
         case "bread":
-        total -= bread.addBread(value);
+        total -= bread.getBreadPrice(value);
         break;
         case "meat":
-        total -= meat.addMeat(value);
+        total -= meat.getMeatPrice(value);
         break;
         case "cheese":
-        total -= cheese.addCheese(value);
+        total -= cheese.getCheesePrice(value);
         break;
         case "condiments":
-        total -= condiment.addCondiments(value);
+        total -= condiment.getCondimentPrice(value);
         break;
         case "veggies":
-        total -= veggies.addVegies(value);
+        total -= veggies.getVeggiesPrice(value);
     }
-    console.log("your total", total);
-    return total;
+    console.log("remove", total.toFixed(2));
+    return total.toFixed(2);
 };
 
-module.exports.clearCategoryTotal = (category) => {
-    total -= bread.breadTotal();
+module.exports.clearCategoryTotal = (id, ingredient) => {
+    if (ingredient.checked) {
+        switch (id) {
+            case "bread":
+            total -= bread.getBreadPrice(ingredient.value).toFixed(2);
+            break;
+            case "meat":
+            total -= meat.getMeatPrice(ingredient.value).toFixed(2);
+            break;
+            case "cheese":
+            total -= cheese.getCheesePrice(ingredient.value).toFixed(2);
+            break;
+            case "condiments":
+            total -= condiment.getCondimentPrice(ingredient.value).toFixed(2);
+            break;
+            case "veggies":
+            total -= veggies.getVeggiesPrice(ingredient.value).toFixed(2);
+            break;
+        }
+        
+    }
 };
 
 
 module.exports.getTotal = () =>  //THIS IS CALLED A 'GETTER'
-     total;
+     total.toFixed(2);
 
 module.exports.getSandwich = () => sandwich;
 
@@ -159,11 +183,23 @@ let breadPrices = {
     "none" : 0 
 };
 
-module.exports.addBread = (breadType) => {
-    breadCost += breadPrices[breadType]; //BC THE VALUE DECLARED IN INDEX (E.G "WHEAT"), IS SAME AS 'WHEAT' HERE, WE GET PRICE!
+module.exports.getBreadPrice = (breadType) => {
+    return breadPrices[breadType];
 };
 
-module.exports.breadTotal = () => breadCost;
+// module.exports.addBread = (breadType) => {
+//     breadCost += breadPrices[breadType]; //BC THE VALUE DECLARED IN INDEX (E.G "WHEAT"), IS SAME AS 'WHEAT' HERE, WE GET PRICE!
+//     console.log("bread cost", breadCost);
+//     return breadCost;
+// };
+
+// module.exports.removeBread = (breadType) => {
+//     breadCost -= breadPrices[breadType];
+//     console.log("deducted bread cost", breadCost);
+//     return ;
+// };
+
+// module.exports.breadTotal = () => breadCost;
 },{}],4:[function(require,module,exports){
 'use strict';
 
@@ -174,7 +210,7 @@ let cheesePrices = {
     "none" : 0 
 };
 
-module.exports.addCheese = (cheeseType) => {
+module.exports.getCheesePrice = (cheeseType) => {
     return cheesePrices[cheeseType];
 };
 },{}],5:[function(require,module,exports){
@@ -187,7 +223,7 @@ let condimentPrices = {
     "none" : 0 
 };
 
-module.exports.addCondiments = (condimentType) => {
+module.exports.getCondimentPrice = (condimentType) => {
     return condimentPrices[condimentType];
 };
 },{}],6:[function(require,module,exports){
@@ -200,7 +236,7 @@ let meatPrices = {
     "none" : 0 
 };
 
-module.exports.addMeat = (meatType) => {
+module.exports.getMeatPrice = (meatType) => {
     return meatPrices[meatType];
 };
 },{}],7:[function(require,module,exports){
@@ -213,7 +249,7 @@ let veggiePrices = {
     "none" : 0 
 };
 
-module.exports.addVegies = (veggieType) => {
+module.exports.getVeggiesPrice = (veggieType) => {
     return veggiePrices[veggieType];
 };
 },{}]},{},[2]);

@@ -41,53 +41,72 @@ module.exports.addIngredient = (id, value) => {
     sandwich[id].push(value);
     switch (id) {
         case "bread":
-        bread.addBread(value);
-        total += bread.breadTotal();
+        total += bread.getBreadPrice(value);
+        // total += bread.breadTotal();
         break;
         case "meat":
-        total += meat.addMeat(value);
+        total += meat.getMeatPrice(value);
         break;
         case "cheese":
-        total += cheese.addCheese(value);
+        total += cheese.getCheesePrice(value);
         break;
         case "condiments":
-        total += condiment.addCondiments(value);
+        total += condiment.getCondimentPrice(value);
         break;
         case "veggies":
-        total += veggies.addVegies(value);
+        total += veggies.getVeggiesPrice(value);
     }
-    console.log("total cost", total);
-    return total;
+    console.log("add", total.toFixed(2));
+    return total.toFixed(2);
 };
 
 module.exports.removeIngredient = (id, value) => {
     sandwich[id].splice(sandwich[id].indexOf(value), 1);
     switch (id) {
         case "bread":
-        total -= bread.addBread(value);
+        total -= bread.getBreadPrice(value);
         break;
         case "meat":
-        total -= meat.addMeat(value);
+        total -= meat.getMeatPrice(value);
         break;
         case "cheese":
-        total -= cheese.addCheese(value);
+        total -= cheese.getCheesePrice(value);
         break;
         case "condiments":
-        total -= condiment.addCondiments(value);
+        total -= condiment.getCondimentPrice(value);
         break;
         case "veggies":
-        total -= veggies.addVegies(value);
+        total -= veggies.getVeggiesPrice(value);
     }
-    console.log("your total", total);
-    return total;
+    console.log("remove", total.toFixed(2));
+    return total.toFixed(2);
 };
 
-module.exports.clearCategoryTotal = (category) => {
-    total -= bread.breadTotal();
+module.exports.clearCategoryTotal = (id, ingredient) => {
+    if (ingredient.checked) {
+        switch (id) {
+            case "bread":
+            total -= bread.getBreadPrice(ingredient.value).toFixed(2);
+            break;
+            case "meat":
+            total -= meat.getMeatPrice(ingredient.value).toFixed(2);
+            break;
+            case "cheese":
+            total -= cheese.getCheesePrice(ingredient.value).toFixed(2);
+            break;
+            case "condiments":
+            total -= condiment.getCondimentPrice(ingredient.value).toFixed(2);
+            break;
+            case "veggies":
+            total -= veggies.getVeggiesPrice(ingredient.value).toFixed(2);
+            break;
+        }
+        
+    }
 };
 
 
 module.exports.getTotal = () =>  //THIS IS CALLED A 'GETTER'
-     total;
+     total.toFixed(2);
 
 module.exports.getSandwich = () => sandwich;
