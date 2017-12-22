@@ -34,6 +34,7 @@ menu.addEventListener("change", function(){
     let none = category.getElementsByClassName("none");
     if (event.target.value === "none") {
         console.log("you pressed none");
+        sandwichMaker.noneClearIngredient(category.id);
         clearCheckboxes(category);
     } else {
         none[0].checked = false;
@@ -141,6 +142,10 @@ module.exports.removeIngredient = (id, value) => {
     }
     console.log("remove", total.toFixed(2));
     return total.toFixed(2);
+};
+
+module.exports.noneClearIngredient = (id) => {
+    sandwich[id] = [];
 };
 
 module.exports.clearCategoryTotal = (id, ingredient) => {

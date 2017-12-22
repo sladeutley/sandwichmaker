@@ -82,6 +82,10 @@ module.exports.removeIngredient = (id, value) => {
     return total.toFixed(2);
 };
 
+module.exports.noneClearIngredient = (id) => {
+    sandwich[id] = [];
+};
+
 module.exports.clearCategoryTotal = (id, ingredient) => {
     if (ingredient.checked) {
         switch (id) {
